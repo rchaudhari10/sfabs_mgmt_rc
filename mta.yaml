@@ -9,7 +9,7 @@ build-parameters:
   before-all:
     - builder: custom
       commands:
-        - npx -p @sap/cds-dk build --production
+        - npx cds build --production
 modules:
   - name: sfasb_management-srv
     type: nodejs
