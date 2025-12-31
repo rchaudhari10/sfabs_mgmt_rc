@@ -33,11 +33,12 @@ modules:
 
   - name: sfasb_management-db-deployer
     type: hdb
-    path: db
+    path: gen/db
     parameters:
       buildpack: nodejs_buildpack
     requires:
       - name: sfasb_management-db
+      
   - name: sfasb_management
     type: approuter.nodejs
     path: app/router
