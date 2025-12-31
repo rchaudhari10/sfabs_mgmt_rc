@@ -9,6 +9,8 @@ build-parameters:
   before-all:
     - builder: custom
       commands:
+        - npm install --package-lock-only
+        - npm ci
         - npx cds build --production
 modules:
   - name: sfasb_management-srv
