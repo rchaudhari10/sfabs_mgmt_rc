@@ -38,7 +38,7 @@ modules:
       buildpack: nodejs_buildpack
     requires:
       - name: sfasb_management-db
-      
+
   - name: sfasb_management
     type: approuter.nodejs
     path: app/router
@@ -56,27 +56,58 @@ modules:
       - name: sfasb_management-auth
       - name: sfasb_management-destination
       - name: sfasb_management-html5-runtime
+      - name: sfasb_management-portal
     provides:
       - name: app-api
         properties:
           app-protocol: ${protocol}
           app-uri: ${default-uri}
 
-  # - name: sfasb_management-app-deployer
-  #   type: com.sap.application.content
-  #   path: gen
-  #   requires:
-  #     - name: sfasb_management-auth
-  #     - name: srv-api
-  #     - name: sfasb_management-html5-repo-host
-  #       parameters:
-  #         content-target: true
-  #         config:
-  #           HTML5Runtime_enabled: true
-  #   build-parameters:
-  #     build-result: app/
-  #     requires:
+  - name: sfasb_management-app-deployer
+    type: com.sap.application.content
+    path: gen
+    requires:
+      - name: srv-api
+      - name: sfasb_management-html5-repo-host
+        parameters:
+          content-target: true
+          config:
+            HTML5Runtime_enabled: true
+    build-parameters:
+      build-result: app/
+      requires:
 
+        # - name: sfasb_management-app-deployer
+        #   type: com.sap.application.content
+        #   path: gen
+        #   requires:
+        #     - name: sfasb_management-auth
+        #     - name: srv-api
+        #     - name: sfasb_management-html5-repo-host
+        #       parameters:
+        #         content-target: true
+        #         config:
+        #           HTML5Runtime_enabled: true
+        #   build-parameters:
+        #     build-result: app/
+        #     requires:
+
+
+  - name: sfasb_management-portal-deployer
+    type: com.sap.application.content
+    path: app/portal
+    requires:
+      - name: sfasb_management-portal
+        parameters:
+          content-target: true
+          service-key:
+            name: sfasb_management-portal-key
+            config:
+              content-endpoint: developer
+      - name: sfasb_management-html5-repo-host
+      - name: sfasb_management-app-deployer
+    deployed-after:
+      - sfasb_management-app-deployer
 resources:
   - name: sfasb_management-auth
     type: org.cloudfoundry.managed-service
@@ -118,3 +149,8 @@ resources:
     parameters:
       service: html5-apps-repo
       service-plan: app-runtime
+  - name: sfasb_management-portal
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: portal
+      service-plan: standard
