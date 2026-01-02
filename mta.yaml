@@ -56,7 +56,7 @@ modules:
       - name: sfasb_management-auth
       - name: sfasb_management-destination
       - name: sfasb_management-html5-runtime
-      - name: sfasb_management-portal
+      # - name: sfasb_management-portal
       # - name: sfasb_management-portal
     provides:
       - name: app-api
@@ -78,21 +78,21 @@ modules:
   #     build-result: app/
   #     requires:
 
-  - name: sfasb_management-portal-deployer
-    type: com.sap.application.content
-    path: app/portal
-    requires:
-      - name: sfasb_management-portal
-        parameters:
-          content-target: true
-          service-key:
-            name: sfasb_management-portal-key
-            config:
-              content-endpoint: developer
-      - name: sfasb_management-html5-repo-host
-      # - name: sfasb_management-app-deployer
-    deployed-after:
-      - sfasb_management-app-deployer
+  # - name: sfasb_management-portal-deployer
+  #   type: com.sap.application.content
+  #   path: app/portal
+  #   requires:
+  #     - name: sfasb_management-portal
+  #       parameters:
+  #         content-target: true
+  #         service-key:
+  #           name: sfasb_management-portal-key
+  #           config:
+  #             content-endpoint: developer
+  #     - name: sfasb_management-html5-repo-host
+  #     # - name: sfasb_management-app-deployer
+  #   deployed-after:
+  #     - sfasb_management-app-deployer
 
   # - name: sfasb_management-app-deployer
   #   type: com.sap.application.content
@@ -150,11 +150,12 @@ resources:
     parameters:
       service: html5-apps-repo
       service-plan: app-runtime
-  - name: sfasb_management-portal
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: portal
-      service-plan: standard
+
+  # - name: sfasb_management-portal
+  #   type: org.cloudfoundry.managed-service
+  #   parameters:
+  #     service: portal
+  #     service-plan: standard
   # - name: sfasb_management-portal
   #   type: org.cloudfoundry.managed-service
   #   parameters:
