@@ -111,7 +111,7 @@ modules:
 
   - name: sfasb_management-app-deployer
     type: com.sap.application.content
-    path: gen
+    path: gen/app
     requires:
       - name: srv-api
       - name: sfasb_management-html5-repo-host
