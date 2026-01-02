@@ -63,51 +63,6 @@ modules:
         properties:
           app-protocol: ${protocol}
           app-uri: ${default-uri}
-        # - name: sfasb_management-app-deployer
-        #   type: com.sap.application.content
-        #   path: gen
-        #   requires:
-        #     - name: srv-api
-        #     - name: sfasb_management-html5-repo-host
-        #       parameters:
-        #         content-target: true
-        #         config:
-        #           HTML5Runtime_enabled: true
-        #   build-parameters:
-        #     build-result: app/
-        #     requires:
-
-        # - name: sfasb_management-app-deployer
-        #   type: com.sap.application.content
-        #   path: gen
-        #   requires:
-        #     - name: sfasb_management-auth
-        #     - name: srv-api
-        #     - name: sfasb_management-html5-repo-host
-        #       parameters:
-        #         content-target: true
-        #         config:
-        #           HTML5Runtime_enabled: true
-        #   build-parameters:
-        #     build-result: app/
-        #     requires:
-
-
-        # - name: sfasb_management-portal-deployer
-        #   type: com.sap.application.content
-        #   path: app/portal
-        #   requires:
-        #     - name: sfasb_management-portal
-        #       parameters:
-        #         content-target: true
-        #         service-key:
-        #           name: sfasb_management-portal-key
-        #           config:
-        #             content-endpoint: developer
-        #     - name: sfasb_management-html5-repo-host
-        #     - name: sfasb_management-app-deployer
-        #   deployed-after:
-        #     - sfasb_management-app-deployer
 
   - name: sfasb_management-app-deployer
     type: com.sap.application.content
@@ -122,7 +77,6 @@ modules:
     build-parameters:
       build-result: app/
       requires:
-
 
   - name: sfasb_management-portal-deployer
     type: com.sap.application.content
@@ -139,6 +93,21 @@ modules:
       - name: sfasb_management-app-deployer
     deployed-after:
       - sfasb_management-app-deployer
+
+  - name: sfasb_management-app-deployer
+    type: com.sap.application.content
+    path: gen
+    requires:
+      - name: srv-api
+      - name: sfasb_management-html5-repo-host
+        parameters:
+          content-target: true
+          config:
+            HTML5Runtime_enabled: true
+    build-parameters:
+      build-result: app/
+      requires:
+
 resources:
   - name: sfasb_management-auth
     type: org.cloudfoundry.managed-service
